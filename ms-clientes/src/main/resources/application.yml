@@ -1,0 +1,19 @@
+
+# Nome da aplica??o (sempre devemos colocar para referencia entre os microservices)
+spring:
+  application:
+    name: msclientes
+
+# Colocando o zero ele sobe o spring em uma porta aleatoria
+server:
+  port: 0
+
+# Configura??es do Eureka
+# Estou informando onde est? o meu servidor Eureka para se registrar
+eureka:
+  client: # Configura??o de client
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  # Qual ? o id da instancia dentro do Eureka service
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}  # Nomeando as instancias
