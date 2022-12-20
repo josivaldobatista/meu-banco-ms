@@ -3,6 +3,7 @@ package com.jfb.msclientes.application.controller
 import com.jfb.msclientes.application.request.ClienteSaveRequest
 import com.jfb.msclientes.application.service.ClienteService
 import com.jfb.msclientes.domain.Cliente
+import com.jfb.msclientes.utils.logger
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
@@ -14,8 +15,11 @@ class ClienteController(
   private val clienteService: ClienteService
 ) {
 
+  val logger = logger<ClienteController>()
+
   @GetMapping
   fun status(): String {
+    logger.info("Obtendo o status do microservice de clientes")
     return "OK"
   }
 
