@@ -20,7 +20,7 @@ class ClienteController(
   @GetMapping
   fun status(): String {
     logger.info("Obtendo o status do microservice de clientes")
-    return "OK"
+    return "Status OK ms-clientes"
   }
 
   @PostMapping
