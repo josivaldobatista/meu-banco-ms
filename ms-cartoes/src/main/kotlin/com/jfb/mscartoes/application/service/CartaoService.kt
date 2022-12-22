@@ -21,7 +21,7 @@ class CartaoService(
   fun getCartoesRendaMenorIgual(
     renda: Long
   ): List<Cartao> {
-    var rendaBigDecimal = BigDecimal.valueOf(renda)
+    val rendaBigDecimal = BigDecimal.valueOf(renda)
     return repository.findByRendaLessThanEqual(rendaBigDecimal)
   }
 }
