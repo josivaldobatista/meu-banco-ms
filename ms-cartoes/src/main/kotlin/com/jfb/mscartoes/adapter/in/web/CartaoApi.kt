@@ -2,6 +2,7 @@ package com.jfb.mscartoes.adapter.`in`.web
 
 import com.jfb.mscartoes.adapter.`in`.web.request.CartaoRequest
 import com.jfb.mscartoes.adapter.`in`.web.response.CartaoResponse
+import com.jfb.mscartoes.adapter.`in`.web.response.CartoesPorClienteResponse
 import com.jfb.mscartoes.application.domain.Cartao
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -29,4 +30,10 @@ interface CartaoApi {
   fun findCartoesRendaAteh(
     @Valid @RequestParam("renda") renda: Long
   ): ResponseEntity<List<Cartao>>
+
+  @GetMapping(params = ["cpf"])
+  @ResponseStatus(HttpStatus.OK)
+  fun findCartoesByCliente(
+    @RequestParam("cpf") cpf: String
+  ): List<CartoesPorClienteResponse>
 }

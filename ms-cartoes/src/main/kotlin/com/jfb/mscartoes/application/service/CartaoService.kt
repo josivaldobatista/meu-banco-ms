@@ -1,6 +1,6 @@
 package com.jfb.mscartoes.application.service
 
-import com.jfb.mscartoes.adapter.out.CartaoRepository
+import com.jfb.mscartoes.adapter.out.repository.CartaoRepository
 import com.jfb.mscartoes.application.domain.Cartao
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional

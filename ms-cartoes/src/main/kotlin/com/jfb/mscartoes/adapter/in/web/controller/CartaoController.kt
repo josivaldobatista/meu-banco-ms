@@ -5,7 +5,10 @@ import com.jfb.mscartoes.adapter.`in`.web.converter.toModel
 import com.jfb.mscartoes.adapter.`in`.web.converter.toResponse
 import com.jfb.mscartoes.adapter.`in`.web.request.CartaoRequest
 import com.jfb.mscartoes.adapter.`in`.web.response.CartaoResponse
+import com.jfb.mscartoes.adapter.`in`.web.response.CartoesPorClienteResponse
 import com.jfb.mscartoes.application.domain.Cartao
+import com.jfb.mscartoes.application.domain.CartaoCliente
+import com.jfb.mscartoes.application.service.CartaoClienteSerivce
 import com.jfb.mscartoes.application.service.CartaoService
 import com.jfb.mscartoes.application.utils.logger
 import org.springframework.http.ResponseEntity
@@ -14,7 +17,8 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class CartaoController(
-  val cartaoService: CartaoService
+  val cartaoService: CartaoService,
+  val cartaoClienteSerivce: CartaoClienteSerivce
 ): CartaoApi {
 
   private val logger = logger<CartaoController>()
@@ -37,5 +41,13 @@ class CartaoController(
   ): ResponseEntity<List<Cartao>> {
     val list: List<Cartao> = cartaoService.getCartoesRendaMenorIgual(renda)
     return ResponseEntity.ok(list)
+  }
+
+  override fun findCartoesByCliente(
+    cpf: String
+  ): List<CartoesPorClienteResponse> {
+    val list: List<CartaoCliente> = cartaoClienteSerivce.listCartaoByCpf(cpf)
+
+    return list.toResponse().cartoesCliente
   }
 }

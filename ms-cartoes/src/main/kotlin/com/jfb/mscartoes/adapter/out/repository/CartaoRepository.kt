@@ -1,4 +1,4 @@
-package com.jfb.mscartoes.adapter.out
+package com.jfb.mscartoes.adapter.out.repository
 
 import com.jfb.mscartoes.application.domain.Cartao
 import org.springframework.data.jpa.repository.JpaRepository
