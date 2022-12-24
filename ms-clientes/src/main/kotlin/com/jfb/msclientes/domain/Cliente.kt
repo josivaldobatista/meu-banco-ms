@@ -8,12 +8,10 @@ import javax.persistence.Id
 @Entity
 class Cliente(
 
-  val cpf: String = "",
-  val nome: String = "",
-  val idade: Int? = null
-) {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private  val id: Long = 0
-}
+  val id: Long? = null,
+  val cpf: String? = "",
+  val nome: String? = "",
+  val idade: Int? = null
+)
