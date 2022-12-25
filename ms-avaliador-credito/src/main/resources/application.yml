@@ -1,6 +1,8 @@
 spring:
   application:
     name: msavaliadorcredito
+  jackson:
+    default-property-inclusion: non_null # <- Serve apenas para incluir as propriedades que não sejam null
 
 server:
   port: 0
@@ -11,4 +13,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # Nomeando a instancia e atribuindo um valor aleat?rio ao MS
-
