@@ -5,5 +5,5 @@ import java.math.BigDecimal
 data class CartoesPorClienteResponse(
   val nome: String,
   val bandeira: String,
-  val limiteLiberado: BigDecimal
+  val limiteLiberado: Long
 )

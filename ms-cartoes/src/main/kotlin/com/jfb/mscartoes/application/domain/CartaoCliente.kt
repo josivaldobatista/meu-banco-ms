@@ -18,5 +18,5 @@ data class CartaoCliente(
   @ManyToOne()
   @JoinColumn(name = "id_cartao")
   val cartao: Cartao,
-  val limiteAprovado: BigDecimal
+  val limiteLiberado: Long
 )

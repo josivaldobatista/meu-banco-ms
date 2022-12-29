@@ -1,6 +1,11 @@
 spring:
   application:
     name: msavaliadorcredito
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   jackson:
     default-property-inclusion: non_null # <- Serve apenas para incluir as propriedades que não sejam null
 
@@ -13,3 +18,7 @@ eureka:
       defaultZone: http://localhost:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} # Nomeando a instancia e atribuindo um valor aleat?rio ao MS
+
+mq:
+  queues:
+    emissao-de-cartoes: emissao-de-cartoes

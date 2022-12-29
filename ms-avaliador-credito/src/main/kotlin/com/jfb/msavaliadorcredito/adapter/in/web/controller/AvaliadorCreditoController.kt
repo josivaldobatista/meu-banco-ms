@@ -1,11 +1,11 @@
 package com.jfb.msavaliadorcredito.adapter.`in`.web.controller
 
 import com.jfb.msavaliadorcredito.adapter.`in`.web.AvaliadorCreditoApi
-import com.jfb.msavaliadorcredito.application.domain.DadosAvaliacao
-import com.jfb.msavaliadorcredito.application.domain.RetornoAvaliacaoCliente
-import com.jfb.msavaliadorcredito.application.domain.SituacaoCliente
+import com.jfb.msavaliadorcredito.application.domain.*
+import com.jfb.msavaliadorcredito.application.exception.ErrorSolicitacaoCartaoException
 import com.jfb.msavaliadorcredito.application.service.AvaliadorCreditoService
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,7 +18,7 @@ class AvaliadorCreditoController(
     return "Status OK ms-avaliador-credito"
   }
 
-  override fun consultaSituacaoCliente(
+  override fun consultarSituacaoCliente(
     cpf: String
   ): ResponseEntity<SituacaoCliente> {
     val situacaoCliente: SituacaoCliente = avaliadorCreditoService.obterSituacaoCliente(cpf)
@@ -30,5 +30,16 @@ class AvaliadorCreditoController(
   ): ResponseEntity<RetornoAvaliacaoCliente> {
     val retornoAvaliacaoCliente = avaliadorCreditoService.realizarAvaliacao(dadosAvaliacao.cpf, dadosAvaliacao.renda)
     return ResponseEntity.ok(retornoAvaliacaoCliente)
+  }
+
+  override fun solicitarCartao(
+    @RequestBody dadosSolicitacaoEmissaoCartao: DadosSolicitacaoEmissaoCartao
+  ): ResponseEntity<Any> {
+    return try {
+      val solicitarEmissaoCartao = avaliadorCreditoService.solicitarEmissaoCartao(dadosSolicitacaoEmissaoCartao)
+      ResponseEntity.ok(solicitarEmissaoCartao)
+    } catch (e: ErrorSolicitacaoCartaoException) {
+      ResponseEntity.internalServerError().body(e.message)
+    }
   }
 }

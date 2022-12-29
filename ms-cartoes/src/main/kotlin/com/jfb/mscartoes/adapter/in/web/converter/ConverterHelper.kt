@@ -26,5 +26,5 @@ fun CartaoCliente.toResponse(): CartoesPorClienteResponse =
   CartoesPorClienteResponse(
     nome = this.cartao.nome,
     bandeira = this.cartao.bandeira.toString(),
-    limiteLiberado = this.limiteAprovado
+    limiteLiberado = this.limiteLiberado
   )

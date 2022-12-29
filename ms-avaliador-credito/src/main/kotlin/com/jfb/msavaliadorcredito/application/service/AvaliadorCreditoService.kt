@@ -1,8 +1,10 @@
 package com.jfb.msavaliadorcredito.application.service
 
+import com.jfb.msavaliadorcredito.adapter.out.mqueue.SolicitacaoEmissaoCartaoPublisher
 import com.jfb.msavaliadorcredito.application.domain.*
 import com.jfb.msavaliadorcredito.application.exception.DadosClienteNotFoundException
 import com.jfb.msavaliadorcredito.application.exception.ErrorComunicacaoMSException
+import com.jfb.msavaliadorcredito.application.exception.ErrorSolicitacaoCartaoException
 import com.jfb.msavaliadorcredito.application.integration.feign.CartaoClient
 import com.jfb.msavaliadorcredito.application.integration.feign.ClienteClient
 import feign.FeignException.FeignClientException
@@ -10,12 +12,14 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
+import java.util.UUID
 import java.util.stream.Collectors
 
 @Service
 class AvaliadorCreditoService(
   private val clientesClient: ClienteClient,
-  private val cartaoClient: CartaoClient
+  private val cartaoClient: CartaoClient,
+  private val emissaoCartaoPublisher: SolicitacaoEmissaoCartaoPublisher
 ) {
 
   fun obterSituacaoCliente(cpf: String
@@ -74,6 +78,19 @@ class AvaliadorCreditoService(
       }
       throw ErrorComunicacaoMSException("ErrorComunicacaoMSException.", status)
     }
+  }
+
+  fun solicitarEmissaoCartao(
+    dados: DadosSolicitacaoEmissaoCartao
+  ): ProtocoloSolicitacaoCartao {
+    try {
+      emissaoCartaoPublisher.solicitarCartao(dados)
+      val protocolo = UUID.randomUUID().toString()
+      return ProtocoloSolicitacaoCartao(protocolo)
+    } catch (e: Exception) {
+        throw ErrorSolicitacaoCartaoException("")
+    }
+
   }
 
 }

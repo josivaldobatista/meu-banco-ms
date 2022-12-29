@@ -1,6 +1,7 @@
 package com.jfb.msavaliadorcredito.adapter.`in`.web
 
 import com.jfb.msavaliadorcredito.application.domain.DadosAvaliacao
+import com.jfb.msavaliadorcredito.application.domain.DadosSolicitacaoEmissaoCartao
 import com.jfb.msavaliadorcredito.application.domain.RetornoAvaliacaoCliente
 import com.jfb.msavaliadorcredito.application.domain.SituacaoCliente
 import org.springframework.http.ResponseEntity
@@ -17,7 +18,7 @@ interface AvaliadorCreditoApi {
   fun status(): String
 
   @GetMapping(value = ["/situacao-cliente"], params = ["cpf"])
-  fun consultaSituacaoCliente(
+  fun consultarSituacaoCliente(
     @RequestParam("cpf") cpf: String
   ): ResponseEntity<SituacaoCliente>
 
@@ -25,4 +26,9 @@ interface AvaliadorCreditoApi {
   fun realizarAvaliacao(
     @RequestBody dadosAvaliacao: DadosAvaliacao
   ): ResponseEntity<RetornoAvaliacaoCliente>
+
+  @PostMapping("/solicitacoes-cartoes")
+  fun solicitarCartao(
+    @RequestBody dadosSolicitacaoEmissaoCartao: DadosSolicitacaoEmissaoCartao
+  ): ResponseEntity<Any>
 }
